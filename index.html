@@ -2,291 +2,1453 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#09070b">
-<title>For You Meri Jaan ❤️</title>
-<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For My Khushuu ❤️</title>
+
+<!-- Elegant fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+
+/* =====================================================
+   BASIC
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background:
+        radial-gradient(circle at 15% 20%, rgba(132, 40, 72, .16), transparent 28%),
+        radial-gradient(circle at 85% 70%, rgba(160, 48, 85, .12), transparent 30%),
+        #10090d;
+
+    color: #f8edf1;
+    font-family: "DM Sans", sans-serif;
+    overflow-x: hidden;
+}
+
+/* subtle grain */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: .035;
+    z-index: 999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+}
+
+/* =====================================================
+   OPENING SCREEN
+===================================================== */
+
+.intro {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(circle at center, #32131f 0%, #10090d 60%, #070507 100%);
+
+    transition:
+        opacity 1.2s ease,
+        visibility 1.2s ease;
+}
+
+.intro.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.intro-content {
+    text-align: center;
+    animation: introAppear 1.8s ease forwards;
+}
+
+.intro-small {
+    font-size: 12px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #d8a7b8;
+    margin-bottom: 20px;
+}
+
+.intro-title {
+    font-family: "Great Vibes", cursive;
+    font-size: clamp(55px, 10vw, 105px);
+    font-weight: 400;
+    color: #f3a5bd;
+    line-height: 1;
+}
+
+.intro-heart {
+    display: inline-block;
+    animation: heartbeat 1.4s infinite;
+}
+
+.intro-line {
+    width: 0;
+    height: 1px;
+    background: #d988a5;
+    margin: 28px auto;
+    animation: lineGrow 1.8s 1s ease forwards;
+}
+
+.intro-text {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 23px;
+    color: #eee0e5;
+    opacity: 0;
+    animation: fadeUp 1.2s 1.4s ease forwards;
+}
+
+.intro-from {
+    margin-top: 15px;
+    color: #b98a9a;
+    font-family: "Great Vibes", cursive;
+    font-size: 30px;
+    opacity: 0;
+    animation: fadeUp 1.2s 1.7s ease forwards;
+}
+
+.open-btn {
+    margin-top: 35px;
+    padding: 13px 30px;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 100px;
+    background: rgba(255,255,255,.04);
+    color: #f7dbe4;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: .4s;
+    opacity: 0;
+    animation: fadeUp 1s 2.1s ease forwards;
+}
+
+.open-btn:hover {
+    background: rgba(210, 99, 135, .18);
+    transform: translateY(-3px);
+}
+
+/* =====================================================
+   FLOATING HEARTS
+===================================================== */
+
+.floating {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.heart {
+    position: absolute;
+    color: rgba(222, 113, 145, .22);
+    font-size: 18px;
+    animation: floatHeart linear infinite;
+}
+
+.heart:nth-child(1) { left: 7%; animation-duration: 13s; }
+.heart:nth-child(2) { left: 18%; animation-duration: 17s; animation-delay: 3s; }
+.heart:nth-child(3) { left: 32%; animation-duration: 12s; animation-delay: 5s; }
+.heart:nth-child(4) { left: 55%; animation-duration: 16s; animation-delay: 1s; }
+.heart:nth-child(5) { left: 72%; animation-duration: 14s; animation-delay: 4s; }
+.heart:nth-child(6) { left: 88%; animation-duration: 18s; animation-delay: 7s; }
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+nav {
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: min(700px, 90%);
+    z-index: 1000;
+
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+
+    padding: 13px 25px;
+
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 50px;
+
+    background: rgba(15, 8, 12, .72);
+    backdrop-filter: blur(18px);
+}
+
+nav a {
+    color: #d9cbd0;
+    text-decoration: none;
+    font-size: 13px;
+    transition: .3s;
+}
+
+nav a:hover {
+    color: #f19ab4;
+}
+
+/* =====================================================
+   GENERAL
+===================================================== */
+
+section {
+    position: relative;
+    min-height: 100vh;
+    padding: 120px 7vw;
+    z-index: 5;
+}
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 65px;
+}
+
+.section-heading h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(55px, 7vw, 90px);
+    font-weight: 500;
+    line-height: .9;
+}
+
+.section-heading p {
+    margin-top: 22px;
+    color: #bfaeb5;
+    font-size: 15px;
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    align-items: center;
+    gap: 80px;
+    padding-top: 150px;
+}
+
+.hero-left {
+    position: relative;
+    height: 620px;
+}
+
+.photo {
+    position: absolute;
+    overflow: hidden;
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,.15);
+    box-shadow: 0 30px 80px rgba(0,0,0,.45);
+    transition: transform .7s cubic-bezier(.2,.8,.2,1);
+}
+
+.photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.photo:hover {
+    z-index: 20;
+    transform: rotate(0deg) scale(1.05) !important;
+}
+
+.photo1 {
+    width: 250px;
+    height: 340px;
+    top: 40px;
+    left: 8%;
+    transform: rotate(-6deg);
+}
+
+.photo2 {
+    width: 245px;
+    height: 325px;
+    top: 100px;
+    left: 48%;
+    transform: rotate(5deg);
+}
+
+.photo3 {
+    width: 255px;
+    height: 330px;
+    top: 315px;
+    left: 13%;
+    transform: rotate(4deg);
+}
+
+.photo4 {
+    width: 245px;
+    height: 325px;
+    top: 280px;
+    left: 51%;
+    transform: rotate(-6deg);
+}
+
+.hero-right {
+    padding-right: 5vw;
+}
+
+.eyebrow {
+    color: #dc91aa;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-size: 11px;
+    margin-bottom: 22px;
+}
+
+.hero-title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(60px, 7vw, 100px);
+    font-weight: 400;
+    line-height: .85;
+}
+
+.hero-title span {
+    color: #e79ab3;
+    font-family: "Great Vibes", cursive;
+}
+
+.hero-description {
+    margin-top: 35px;
+    max-width: 500px;
+    color: #bbaab1;
+    line-height: 1.9;
+    font-size: 15px;
+}
+
+/* =====================================================
+   COUNTER
+===================================================== */
+
+.counter-box {
+    margin-top: 45px;
+    padding: 27px;
+
+    border: 1px solid rgba(232,155,177,.17);
+    border-radius: 20px;
+
+    background: rgba(255,255,255,.025);
+}
+
+.counter-label {
+    color: #a88f98;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 17px;
+}
+
+.counter {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 10px;
+}
+
+.time-number {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 42px;
+    color: #f1cbd6;
+}
+
+.time-label {
+    font-size: 10px;
+    color: #927c85;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* =====================================================
+   STORY
+===================================================== */
+
+.story {
+    background:
+        radial-gradient(circle at 50% 50%, rgba(100,25,50,.12), transparent 45%);
+}
+
+.timeline {
+    max-width: 850px;
+    margin: auto;
+    position: relative;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgba(221,137,162,.2);
+}
+
+.story-item {
+    width: 50%;
+    padding: 20px 45px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(35px);
+    transition: 1s ease;
+}
+
+.story-item.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.story-item:nth-child(odd) {
+    text-align: right;
+}
+
+.story-item:nth-child(even) {
+    margin-left: 50%;
+}
+
+.story-dot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #d982a0;
+    top: 30px;
+    box-shadow: 0 0 20px rgba(221,111,145,.5);
+}
+
+.story-item:nth-child(odd) .story-dot {
+    right: -5px;
+}
+
+.story-item:nth-child(even) .story-dot {
+    left: -5px;
+}
+
+.story-date {
+    color: #d7839f;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.story-item h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 32px;
+    margin: 8px 0;
+}
+
+.story-item p {
+    color: #a9979e;
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+/* =====================================================
+   DATES
+===================================================== */
+
+.dates-grid {
+    max-width: 950px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.date-card {
+    padding: 35px 25px;
+    min-height: 200px;
+
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 20px;
+
+    background: rgba(255,255,255,.025);
+    transition: .5s;
+}
+
+.date-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(224,131,158,.3);
+}
+
+.date-icon {
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.date-card small {
+    color: #d786a0;
+    letter-spacing: 2px;
+}
+
+.date-card h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 30px;
+    margin: 8px 0;
+}
+
+.date-card p {
+    color: #9f8e95;
+    font-size: 13px;
+}
+
+/* =====================================================
+   MEMORIES
+===================================================== */
+
+.memories {
+    padding-bottom: 150px;
+}
+
+.memory-grid {
+    max-width: 1250px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.memory-card {
+    overflow: hidden;
+    border-radius: 22px;
+    background: #1b1217;
+    border: 1px solid rgba(255,255,255,.09);
+
+    transition: .6s cubic-bezier(.2,.8,.2,1);
+}
+
+.memory-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 25px 70px rgba(0,0,0,.4);
+}
+
+.memory-img {
+    height: 330px;
+    overflow: hidden;
+}
+
+.memory-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 1s ease;
+}
+
+.memory-card:hover img {
+    transform: scale(1.06);
+}
+
+.memory-content {
+    padding: 24px;
+}
+
+.memory-content h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 27px;
+}
+
+.memory-content p {
+    margin-top: 9px;
+    color: #a7949c;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+/* =====================================================
+   LETTER
+===================================================== */
+
+.letter-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.letter {
+    width: min(800px, 90%);
+    padding: 65px;
+
+    border: 1px solid rgba(226,140,163,.17);
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.012)
+        );
+
+    box-shadow: 0 40px 100px rgba(0,0,0,.35);
+}
+
+.letter-small {
+    color: #d685a0;
+    letter-spacing: 4px;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.letter h2 {
+    font-family: "Great Vibes", cursive;
+    font-size: clamp(55px, 7vw, 80px);
+    font-weight: 400;
+    color: #e9a1b8;
+    margin: 15px 0 30px;
+}
+
+.letter p {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 21px;
+    line-height: 1.75;
+    color: #d8c8ce;
+}
+
+.signature {
+    margin-top: 35px;
+    font-family: "Great Vibes", cursive;
+    color: #e49ab2;
+    font-size: 40px;
+}
+
+.footer {
+    text-align: center;
+    padding: 35px;
+    color: #69565f;
+    font-size: 11px;
+}
+
+/* =====================================================
+   ANIMATIONS
+===================================================== */
+
+@keyframes introAppear {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes lineGrow {
+    to {
+        width: 100px;
+    }
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+}
+
+@keyframes heartbeat {
+    0%,100% { transform: scale(1); }
+    15% { transform: scale(1.2); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+}
+
+@keyframes floatHeart {
+    from {
+        transform: translateY(110vh) rotate(0);
+    }
+    to {
+        transform: translateY(-15vh) rotate(360deg);
+    }
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width: 1000px) {
+
+    .hero {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .hero-left {
+        height: 600px;
+        max-width: 650px;
+        width: 100%;
+        margin: auto;
+    }
+
+    .hero-right {
+        text-align: center;
+        padding: 0;
+    }
+
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .dates-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .memory-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media(max-width: 650px) {
+
+    nav {
+        gap: 15px;
+        padding: 12px 15px;
+    }
+
+    nav a {
+        font-size: 11px;
+    }
+
+    section {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .hero {
+        padding-top: 130px;
+    }
+
+    .hero-left {
+        height: 430px;
+    }
+
+    .photo1 {
+        width: 165px;
+        height: 230px;
+        left: 4%;
+        top: 20px;
+    }
+
+    .photo2 {
+        width: 165px;
+        height: 220px;
+        left: 48%;
+        top: 55px;
+    }
+
+    .photo3 {
+        width: 170px;
+        height: 225px;
+        left: 10%;
+        top: 215px;
+    }
+
+    .photo4 {
+        width: 165px;
+        height: 220px;
+        left: 51%;
+        top: 200px;
+    }
+
+    .counter {
+        grid-template-columns: repeat(2,1fr);
+        gap: 20px;
+    }
+
+    .timeline::before {
+        left: 8px;
+    }
+
+    .story-item,
+    .story-item:nth-child(even) {
+        width: 100%;
+        margin-left: 0;
+        text-align: left;
+        padding-left: 35px;
+        padding-right: 0;
+    }
+
+    .story-item:nth-child(odd) .story-dot,
+    .story-item:nth-child(even) .story-dot {
+        left: 3px;
+        right: auto;
+    }
+
+    .dates-grid,
+    .memory-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .memory-img {
+        height: 400px;
+    }
+
+    .letter {
+        padding: 35px 25px;
+    }
+
+    .letter p {
+        font-size: 19px;
+    }
+}
+
+</style>
 </head>
+
 <body>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z3XS2SYG51"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-Z3XS2SYG51');
-</script>
+<!-- =====================================================
+     OPENING
+===================================================== -->
 
+<div class="intro" id="intro">
 
-<!-- OPENING -->
-<div id="openingScreen" class="opening-screen">
-  <div class="opening-stars"></div>
-  <div class="opening-moon"></div>
-  <div class="opening-content">
-    <span class="tiny-line">A little universe, made for one girl</span>
-    <h1>For You<br><em>Meri Jaan</em> ♡</h1>
-    <p>Somewhere between the stars, I found my favourite person.</p>
-    <button id="enterBtn" class="gold-button">Enter Our Little World →</button>
-  </div>
+    <div class="intro-content">
+
+        <div class="intro-small">
+            A little corner of our world
+        </div>
+
+        <div class="intro-title">
+            For My Khushuu <span class="intro-heart">♥</span>
+        </div>
+
+        <div class="intro-line"></div>
+
+        <div class="intro-text">
+            Baccha... I really love you so much baccha.
+        </div>
+
+        <div class="intro-from">
+            — Yours Sagar
+        </div>
+
+        <button class="open-btn" onclick="openLove()">
+            Open My Heart ♥
+        </button>
+
+    </div>
+
 </div>
 
-<!-- PASSWORD -->
-<div id="passwordScreen" class="password-screen hidden">
-  <div class="password-stars"></div>
-  <div class="password-box">
-    <div class="password-heart">♡</div>
-    <span class="eyebrow">OUR LITTLE SECRET</span>
-    <h2>Only you can open this.</h2>
-    <p>This little world is private. Enter the secret we both know.</p>
-    <form id="passwordForm">
-      <input id="passwordInput" type="password" autocomplete="current-password"
-             placeholder="Enter our secret password" aria-label="Secret password">
-      <button id="unlockBtn" class="gold-button" type="submit">Unlock My Heart ♡</button>
-    </form>
-    <div id="passwordError" aria-live="polite"></div>
-  </div>
+
+<!-- FLOATING HEARTS -->
+
+<div class="floating">
+    <div class="heart">♡</div>
+    <div class="heart">♥</div>
+    <div class="heart">✦</div>
+    <div class="heart">♡</div>
+    <div class="heart">♥</div>
+    <div class="heart">✧</div>
 </div>
 
-<div id="mainContent" class="hidden">
 
-  <!-- NAV -->
-  <header class="main-nav">
-    <a href="#home" class="nav-logo">For You <span>Meri Jaan</span> ♡</a>
-    <button class="nav-menu-btn" id="navMenuBtn" aria-label="Open menu">☰</button>
-    <nav class="nav-links" id="navLinks">
-      <a href="#home">Home</a>
-      <a href="#story">Our Story</a>
-      <a href="#our-time">Our Time</a>
-      <a href="#letter">Letter</a>
-      <a href="#surprises">Surprises</a>
-      <a href="#access">Explore</a>
-      <a href="thoughts.html" class="access-card">
-  <span class="access-icon">💭</span>
-  <span>
-    <small>WORDS FROM MY HEART</small>
-    <strong>Thoughts & Shayari</strong>
-  </span>
-  <b>→</b>
-</a>
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
 
-<a href="diary.html" class="access-card">
-  <span class="access-icon">📖</span>
-  <span>
-    <small>MY LITTLE JOURNAL</small>
-    <strong>My Diary</strong>
-  </span>
-  <b>→</b>
-</a>
+<nav>
+    <a href="#home">Home</a>
+    <a href="#story">Our Story</a>
+    <a href="#dates">Dates</a>
+    <a href="#memories">Memories</a>
+    <a href="#letter">Letter</a>
+</nav>
 
-<a href="just-for-you.html" class="access-card">
-  <span class="access-icon">💌</span>
-  <span>
-    <small>ONLY FOR YOU</small>
-    <strong>Just For You</strong>
-  </span>
-  <b>→</b>
-</a>
-    </nav>
-    <button id="musicToggle" class="nav-music" aria-label="Play background music">♪</button>
-  </header>
 
-  <!-- HERO -->
-  <section id="home" class="hero-section">
-    <div class="hero-sky"><div class="stars stars-one"></div><div class="stars stars-two"></div><div class="shooting-star"></div></div>
-    <div class="hero-sun"></div>
-    <div class="hero-horizon"></div>
-    <div class="hero-moon"><span></span></div>
-    <div class="hero-copy reveal">
-      <span class="eyebrow">YOU ARE THE PERSON BETAA WHO BECAME MY HOME</span>
-      <h1>You are my<br><strong>favourite</strong><br>little universe.</h1>
-      <p>I don't know how the universe decided to bring you into my life, but every version of my future somehow looks better when you're in it.</p>
-      <a href="#story" class="scroll-down"><span>Scroll to our story</span> ↓</a>
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section class="hero" id="home">
+
+    <div class="hero-left">
+
+        <!-- PHOTO 1 -->
+        <div class="photo photo1">
+            <img src="images/photo1.jpg" alt="Our memory">
+        </div>
+
+        <!-- PHOTO 2 -->
+        <div class="photo photo2">
+            <img src="images/photo2.jpg" alt="Our memory">
+        </div>
+
+        <!-- PHOTO 3 -->
+        <div class="photo photo3">
+            <img src="images/photo3.jpg" alt="Our memory">
+        </div>
+
+        <!-- PHOTO 4 -->
+        <div class="photo photo4">
+            <img src="images/photo4.jpg" alt="Our memory">
+        </div>
+
     </div>
-    <div class="hero-bottom-note"><span>05.04.2025</span><span>∞</span><span>US</span></div>
-  </section>
 
-  <!-- THOUGHT -->
-  <section class="cream-section intro-section">
-    <div class="section-label">01 — A THOUGHT</div>
-    <div class="intro-grid">
-      <p class="giant-thought reveal">“I Really Lovee Youuu Khushuu......... You're the person i want to keep in my life”</p>
-      <div class="intro-side reveal">
-        <span class="handwritten">For My Khushuu ♡</span>
-        <p>If I could put my feelings into the sky, the stars would still not be enough. So I made you a little universe instead.</p>
-        <span class="tiny-note">— from someone who got lucky</span>
-      </div>
-    </div>
-  </section>
 
-  <!-- STORY -->
-  <section id="story" class="timeline-section">
-    <div class="section-label">02 — OUR JOURNEY</div>
-    <div class="timeline-intro">
-      <div>
-        <span class="handwritten wine-text">A few pages of us</span>
-        <h2>Our little<br><em>story.</em></h2>
-      </div>
-      <p>Not every beautiful thing needs a reason. Some dates simply become part of your heart.</p>
+    <div class="hero-right">
+
+        <div class="eyebrow">
+            A story written by two hearts
+        </div>
+
+        <h1 class="hero-title">
+            Me & <br>
+            <span>Khushuu</span>
+        </h1>
+
+        <p class="hero-description">
+            Some people enter our lives quietly and somehow
+            become the most beautiful part of them.
+            You became that person for me, Khushuu.
+            And every day with you is another page
+            of my favourite story.
+        </p>
+
+
+        <!-- LIVE COUNTER -->
+
+        <div class="counter-box">
+
+            <div class="counter-label">
+                Together since the day everything changed
+            </div>
+
+            <div class="counter">
+
+                <div>
+                    <div class="time-number" id="days">0</div>
+                    <div class="time-label">Days</div>
+                </div>
+
+                <div>
+                    <div class="time-number" id="hours">0</div>
+                    <div class="time-label">Hours</div>
+                </div>
+
+                <div>
+                    <div class="time-number" id="minutes">0</div>
+                    <div class="time-label">Minutes</div>
+                </div>
+
+                <div>
+                    <div class="time-number" id="seconds">0</div>
+                    <div class="time-label">Seconds</div>
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
+
+</section>
+
+
+<!-- =====================================================
+     OUR STORY
+===================================================== -->
+
+<section class="story" id="story">
+
+    <div class="section-heading">
+
+        <h2>Our Story</h2>
+
+        <p>
+            From one beautiful moment to a thousand memories.
+        </p>
+
+    </div>
+
 
     <div class="timeline">
-      <article class="timeline-item reveal">
-        <div class="timeline-date"> 05 APRIL 2025</div>
-        <div class="timeline-dot">💬</div>
-        <div class="timeline-content"><span>THE BEGINNING</span><h3>OUR ANNIVERSARY</h3><p>Pata nahi tha ki ek normal si conversation meri life ka itna beautiful part ban jayegi. ❤️</p></div>
-      </article>
-      <article class="timeline-item reveal">
-        <div class="timeline-date">11 NOVEMBER 2025</div>
-        <div class="timeline-dot">❤️</div>
-        <div class="timeline-content"><span>THE DAY</span><h3>THE DAY WE MEET</h3><p>Ek din jo meri life ke sabse beautiful days mein hamesha rahega. 🥹</p></div>
-      </article>
-      <article class="timeline-item reveal">
-        <div class="timeline-date">23 APRIL 2026</div>
-        <div class="timeline-dot">🫶</div>
-        <div class="timeline-content"><span>A MEMORY</span><h3>Our First Meet</h3><p>Screen ke uss paar se real life tak... finally ek dusre ke saamne. ❤️</p></div>
-      </article>
-      <article class="timeline-item reveal">
-        <div class="timeline-date">11 JULY 2026</div>
-        <div class="timeline-dot">✨</div>
-        <div class="timeline-content"><span>A SPECIAL DAY</span><h3>A Special Day</h3><p>Kuch moments explain nahi hote, bas dil mein hamesha ke liye reh jaate hain.</p></div>
-      </article>
-      <article class="timeline-item reveal">
-        <div class="timeline-date">27 JANUARY 2008</div>
-        <div class="timeline-dot">🎂</div>
-        <div class="timeline-content"><span>YOUR DAY</span><h3>YOUR SPECIAL DAY</h3><p>Tumhara birthday mere liye bhi special hai, kyunki isi duniya mein tum ho. ❤️</p></div>
-      </article>
-    </div>
-  </section>
 
-  <!-- COUNTER -->
-  <section id="our-time" class="counter-section">
-    <div class="section-label light-label">03 — OUR TIME</div>
-    <div class="counter-heading">
-      <span class="handwritten">Every second counts</span>
-      <h2>Time Since<br><em>We Became Us.</em></h2>
-      <p>Har second tumhare saath special hai.</p>
-    </div>
-    <div class="counter-grid">
-      <div class="counter-card"><strong id="years">0</strong><span>Years</span></div>
-      <div class="counter-card"><strong id="months">0</strong><span>Months</span></div>
-      <div class="counter-card"><strong id="days">0</strong><span>Total Days</span></div>
-      <div class="counter-card"><strong id="hours">0</strong><span>Hours</span></div>
-      <div class="counter-card"><strong id="minutes">0</strong><span>Minutes</span></div>
-      <div class="counter-card"><strong id="seconds">0</strong><span>Seconds</span></div>
-    </div>
-    <div class="total-time">
-      <span>Total time we've been <strong>us</strong></span>
-      <strong id="totalTime"> days • hours •  minutes • seconds</strong>
-    </div>
-  </section>
+        <div class="story-item">
 
-  <!-- FOUR HOME PHOTOS ONLY -->
-  <section class="photo-intro-section">
-    <div class="section-label light-label">04 — FOUR LITTLE MEMORIES</div>
-    <div class="photo-heading">
-      <div><span class="handwritten gold-text">My favourite views ♡</span><h2>Four photographs.<br><em>Infinite feelings.</em></h2></div>
-      <a href="photos.html" class="outline-button">View All Photos →</a>
-    </div>
-    <div class="home-photo-grid">
-      <figure class="home-photo reveal"><div class="home-photo-image"><img src="photo1.jpg" alt="Our memory 1"></div><figcaption><span>01</span><h3>Meri Pehli Pasand Betaaa</h3><p>Saree Mein Bilkul Meri Lugai Lagti Ho Madam Ji ❤️</p></figcaption></figure>
-      <figure class="home-photo reveal"><div class="home-photo-image"><img src="photo2.jpg" alt="Our memory 2"></div><figcaption><span>02</span><h3>Dusri Pansand</h3><p>Or is suit m to kya hi kahu tumhe koi beat nhi kr skta sundarta mein ✨</p></figcaption></figure>
-      <figure class="home-photo reveal"><div class="home-photo-image"><img src="photo3.jpg" alt="Our memory 3"></div><figcaption><span>03</span><h3>Teesri Lovely Photo</h3><p>Kitta innocent lg rha h meraa bacchaa 🥰</p></figcaption></figure>
-      <figure class="home-photo reveal"><div class="home-photo-image"><img src="photo4.jpg" alt="Our memory 4"></div><figcaption><span>04</span><h3>Forth Fav</h3><p>Aayee Haayee Stylish Gurl (Motaaaaa) 💗</p></figcaption></figure>
-    </div>
-  </section>
+            <div class="story-dot"></div>
 
-  <!-- ENGLISH LOVE LETTER -->
-  <section id="letter" class="letter-section">
-    <div class="letter-background-word">LOVE</div>
-    <div class="section-label light-label">05 — A LETTER I MEANT</div>
-    <div class="letter-paper reveal">
-      <div class="letter-top"><span>FOR YOU BACCHA</span><span>♡</span></div>
-      <div class="letter-date">Written from the quietest part of my heart</div>
-      <h2>For You Betaa</h2>
-      <div class="letter-body">
-        <p>I don't think I will ever find the perfect words for what you mean to me. Still, if I had to try, I would say this: you are the kind of person who makes ordinary days feel worth remembering.</p>
-        <p>You became a part of my life so naturally that now it is difficult to imagine my little world without you in it. Your smile, your moods, your silly moments, your beautiful heart — somehow, all of it became home to me.</p>
-        <p>I know I am not perfect. I know there will be days when I say the wrong thing, misunderstand something, or fail to express what I really mean. But one thing I never want you to doubt is how deeply I care about you.</p>
-        <p>I want to keep learning you. I want to keep collecting tiny memories with you. I want the boring mornings, the random calls, the laughter, the arguments we solve, the celebrations, the quiet evenings and all the little things nobody else would understand.</p>
-        <p>If life is a long story, I don't need every chapter to be perfect. I just want your name somewhere in every beautiful one.</p>
-        <p>Thank you for being you. Thank you for becoming my favourite person without even trying.</p>
-      </div>
-      <div class="letter-signature"><span>Always,</span><strong>Ksagar ❤️</strong></div>
-    </div>
-  </section>
+            <div class="story-date">
+                THE BEGINNING
+            </div>
 
-  <!-- THOUGHTS -->
-  <section class="thoughts-section">
-    <div class="section-label">06 — DEEP THOUGHTS</div>
-    <div class="thought-heading"><span class="handwritten">Things I quietly believe</span><h2>Some feelings<br><em>have no language.</em></h2></div>
-    <div class="thought-cards">
-      <article class="reveal"><span>01 — HOME</span><p>“Home is not always a place. Sometimes it is a person whose presence makes your heart stop searching.”</p></article>
-      <article class="reveal"><span>02 — TIME</span><p>“The best part of time is not how much of it we have, but who we get to spend it with.”</p></article>
-      <article class="reveal"><span>03 — US</span><p>“If I had to choose one little universe to live in forever, I would still choose the one where you exist.”</p></article>
-    </div>
-  </section>
+            <h3>The day it started</h3>
 
-  <!-- GIFTS -->
-  <section id="surprises" class="gift-section">
-    <div class="section-label light-label">07 — LITTLE SURPRISES</div>
-    <div class="gift-heading"><span class="handwritten gold-text">Open them slowly ♡</span><h2>Four little<br>thoughts for you.</h2></div>
-    <div class="gift-grid">
-      <button class="gift-card reveal" onclick="openGift(0)"><span class="gift-number">01</span><span class="gift-icon">🎁</span><strong>Shayari</strong><span>Open me ♡</span></button>
-      <button class="gift-card reveal" onclick="openGift(1)"><span class="gift-number">02</span><span class="gift-icon">🎀</span><strong>You're The Person</strong><span>Something special ✨</span></button>
-      <button class="gift-card reveal" onclick="openGift(2)"><span class="gift-number">03</span><span class="gift-icon">💌</span><strong>Crazy About You</strong><span>Read me 💕</span></button>
-      <button class="gift-card reveal" onclick="openGift(3)"><span class="gift-number">04</span><span class="gift-icon">💖</span><strong>I Hope</strong><span>For you 🥹</span></button>
-    </div>
-  </section>
+            <p>
+                Us din shayad humein nahi pata tha ki
+                ek simple beginning meri life ki
+                sabse beautiful story ban jayegi.
+            </p>
 
-  <!-- ACCESS -->
-  <section id="access" class="access-section">
-    <div class="section-label">08 — EXPLORE OUR WORLD</div>
-    <h2>There is more<br><em>waiting for you.</em></h2>
-    <p>Home par sirf chaar favourite photos rakhi hain. Baaki memories apni jagah par tumhara wait kar rahi hain.</p>
-    <div class="access-buttons">
-      <a href="photos.html" class="access-card"><span class="access-icon">📸</span><span><small>MEMORIES</small><strong>All Our Photos</strong></span><b>→</b></a>
-      <a href="videos.html" class="access-card"><span class="access-icon">🎬</span><span><small>MOVING MEMORIES</small><strong>Our Videos</strong></span><b>→</b></a>
-      <a href="songs.html" class="access-card"><span class="access-icon">🎶</span><span><small>SOUNDTRACK</small><strong>Our Songs</strong></span><b>→</b></a>
-    </div>
-  </section>
+        </div>
 
-  <!-- FINAL -->
-  <section class="final-section">
-    <div class="final-stars"></div>
-    <span class="eyebrow">09 — ONE LAST THING</span>
-    <div class="final-poem reveal">
-      <p>Main Shehar Ki Bheed Tum Sukoon Ki Sham</p>
-      <p>Main Adhuri Si Kahani Tum Uska Anjaam.</p>
-      <p>Main Uljhe Hue Jazbaat Tum Suljhe Hue Alfaaz.</p>
-      <p>Main Bikhri Hui Si Dhadkan Tum Dil Ka Saaz Ho.</p>
-      <p>Main Waqt Ki Tej Dhoop Tum Thandi Chaon</p>
-      <p>Main Ek Bhatakti Si Dua, Tum Uska Jawab.</p>
-      <p>Mere Liye Tum Ek Panna Nhi Puri Ki Puri Kitaab Ho. 🥹❤️</p>
-    </div>
-    <div class="and-suno">Aur Suno...</div>
-    <div class="final-heart">♥</div>
-    <h2>I LOVE YOU<br><em>SO MUCH YAAR ❤️</em></h2>
-    <p class="forever-line">In this little universe, I will always save a place for you.</p>
-  </section>
 
-  <footer class="site-footer"><span>Our memories ♡</span><strong>∞</strong><span>For You Meri Jaan</span></footer>
+        <div class="story-item">
+
+            <div class="story-dot"></div>
+
+            <div class="story-date">
+                OUR FIRST MEMORIES
+            </div>
+
+            <h3>Getting to know you</h3>
+
+            <p>
+                Tumhari baatein, tumhari smile,
+                tumhara woh cute sa way of making
+                everything feel special.
+            </p>
+
+        </div>
+
+
+        <div class="story-item">
+
+            <div class="story-dot"></div>
+
+            <div class="story-date">
+                SOMEWHERE ALONG THE WAY
+            </div>
+
+            <h3>You became my favourite person</h3>
+
+            <p>
+                Dheere dheere tum sirf meri story ka
+                part nahi rahi... tum meri favourite
+                part ban gayi.
+            </p>
+
+        </div>
+
+
+        <div class="story-item">
+
+            <div class="story-dot"></div>
+
+            <div class="story-date">
+                TODAY
+            </div>
+
+            <h3>And I still choose you</h3>
+
+            <p>
+                Har baar. Har din.
+                Aaj bhi aur kal bhi.
+                Bas tum.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SPECIAL DATES
+===================================================== -->
+
+<section id="dates">
+
+    <div class="section-heading">
+
+        <h2>Special Dates</h2>
+
+        <p>
+            The little dates that became big memories.
+        </p>
+
+    </div>
+
+
+    <div class="dates-grid">
+
+        <div class="date-card">
+            <div class="date-icon">♡</div>
+            <small>OUR BEGINNING</small>
+            <h3>05 APRIL  2025</h3>
+            <p>The day our story officially began.</p>
+        </div>
+
+
+        <div class="date-card">
+            <div class="date-icon">✦</div>
+            <small>FIRST SPECIAL MOMENT</small>
+            <h3> 06 APRIL 2026</h3>
+            <p>A day I will always remember.</p>
+        </div>
+
+
+        <div class="date-card">
+            <div class="date-icon">♥</div>
+            <small>MY FAVOURITE DAY</small>
+            <h3>27 JANUARY</h3>
+            <p>Beautiful Date Of Mine.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MEMORIES
+===================================================== -->
+
+<section class="memories" id="memories">
+
+    <div class="section-heading">
+
+        <h2>Our Memories</h2>
+
+        <p>
+            Four pictures. Four little pieces of our story. ❤️
+        </p>
+
+    </div>
+
+
+    <div class="memory-grid">
+
+        <!-- MEMORY 1 -->
+
+        <div class="memory-card">
+
+            <div class="memory-img">
+                <img src="images/photo5.jpg" alt="Memory">
+            </div>
+
+            <div class="memory-content">
+
+                <h3>My Favourite Place</h3>
+
+                <p>
+                    “Tumhari smile dekh kar lagta hai,
+                    duniya thodi aur beautiful hai.”
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- MEMORY 2 -->
+
+        <div class="memory-card">
+
+            <div class="memory-img">
+                <img src="images/photo6.jpg" alt="Memory">
+            </div>
+
+            <div class="memory-content">
+
+                <h3>Just Us</h3>
+
+                <p>
+                    “Har picture mein mujhe
+                    hum dono ki ek story dikhti hai.”
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- MEMORY 3 -->
+
+        <div class="memory-card">
+
+            <div class="memory-img">
+                <img src="images/photo7.jpg" alt="Memory">
+            </div>
+
+            <div class="memory-content">
+
+                <h3>A Beautiful Day</h3>
+
+                <p>
+                    “Kuch moments khatam ho jaate hain,
+                    memories kabhi nahi.”
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- MEMORY 4 -->
+
+        <div class="memory-card">
+
+            <div class="memory-img">
+                <img src="images/photo8.jpg" alt="Memory">
+            </div>
+
+            <div class="memory-content">
+
+                <h3>Forever Favourite</h3>
+
+                <p>
+                    “If I could relive one moment,
+                    I'd choose one with you.”
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     LOVE LETTER
+===================================================== -->
+
+<section class="letter-section" id="letter">
+
+    <div class="letter">
+
+        <div class="letter-small">
+            A letter from my heart
+        </div>
+
+        <h2>My Khushuu,</h2>
+
+        <p>
+
+            Pata nahi main words mein kabhi perfectly
+            explain kar paunga ya nahi ki tum mere liye
+            kitni special ho.
+
+            <br><br>
+
+            Tum meri life ka woh beautiful part ho
+            jiske aane ke baad ordinary moments bhi
+            special lagne lage.
+
+            <br><br>
+
+            Tumhari smile, tumhari little little
+            baatein, tumhara gussa, tumhara care...
+            sab kuch mere liye precious hai.
+
+            <br><br>
+
+            Main future ka har beautiful moment
+            imagine karta hoon, aur pata hai usmein
+            sabse pehle kaun hota hai?
+
+            <br><br>
+
+            <strong>YOU.</strong>
+
+            <br><br>
+
+            Thank you meri life mein aane ke liye.
+            Thank you mujhe itna pyaar dene ke liye.
+            Aur thank you meri duniya ka ek
+            itna beautiful part banne ke liye.
+
+            <br><br>
+
+            Bas ek baat hamesha yaad rakhna...
+
+            <br><br>
+
+            <strong>
+                I really love you so much, baccha. ❤️
+            </strong>
+
+            <br><br>
+
+            Aur chahe kitne bhi days, months aur years
+            pass ho jaayein...
+
+            <br>
+
+            <strong>
+                I'll still choose you.
+            </strong>
+
+        </p>
+
+        <div class="signature">
+            Your Sagar ❤️
+        </div>
+
+    </div>
+
+</section>
+
+
+<div class="footer">
+    Made with all my love — Sagar → Khushuu ❤️
 </div>
 
-<!-- GIFT MODAL -->
-<div id="giftModal" class="modal" aria-hidden="true">
-  <div class="modal-backdrop" onclick="closeGift()"></div>
-  <div class="modal-content">
-    <button class="modal-close" onclick="closeGift()" aria-label="Close">×</button>
-    <div id="giftEmoji" class="modal-emoji">🎁</div>
-    <span class="section-label light-label">A LITTLE SOMETHING</span>
-    <h2 id="giftTitle">A Little Surprise</h2>
-    <p id="giftText">Something special for you ❤️</p>
-    <button class="gold-button" onclick="closeGift()">Keep it in your heart ♡</button>
-  </div>
-</div>
 
-<div class="hearts-container" aria-hidden="true"></div>
-<script src="script.js"></script>
+<script>
+
+/* =====================================================
+   IMPORTANT:
+   YAHAN APNI RELATIONSHIP START DATE DAALO
+
+   Format:
+   "YYYY-MM-DDTHH:MM:SS"
+
+   Example:
+   "2024-02-14T20:30:00"
+
+===================================================== */
+
+const relationshipStart = new Date("2025-04-05T12:30:00");
+
+
+/* =====================================================
+   LIVE RELATIONSHIP COUNTER
+===================================================== */
+
+function updateCounter() {
+
+    const now = new Date();
+
+    let difference = now - relationshipStart;
+
+    if (difference < 0) {
+        difference = 0;
+    }
+
+    const totalSeconds = Math.floor(difference / 1000);
+
+    const days = Math.floor(totalSeconds / 86400);
+
+    const hours = Math.floor(
+        (totalSeconds % 86400) / 3600
+    );
+
+    const minutes = Math.floor(
+        (totalSeconds % 3600) / 60
+    );
+
+    const seconds = totalSeconds % 60;
+
+
+    document.getElementById("days").textContent =
+        days.toLocaleString();
+
+    document.getElementById("hours").textContent =
+        String(hours).padStart(2, "0");
+
+    document.getElementById("minutes").textContent =
+        String(minutes).padStart(2, "0");
+
+    document.getElementById("seconds").textContent =
+        String(seconds).padStart(2, "0");
+}
+
+updateCounter();
+
+setInterval(updateCounter, 1000);
+
+
+/* =====================================================
+   OPENING ANIMATION
+===================================================== */
+
+function openLove() {
+
+    const intro = document.getElementById("intro");
+
+    intro.classList.add("hide");
+
+    document.body.style.overflow = "auto";
+
+    setTimeout(() => {
+
+        document.getElementById("home")
+            .scrollIntoView({
+                behavior: "smooth"
+            });
+
+    }, 700);
+}
+
+
+/* =====================================================
+   STORY SCROLL ANIMATION
+===================================================== */
+
+const storyItems =
+    document.querySelectorAll(".story-item");
+
+const observer = new IntersectionObserver(
+
+    entries => {
+
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+                entry.target.classList.add("show");
+
+            }
+
+        });
+
+    },
+
+    {
+        threshold: 0.15
+    }
+
+);
+
+storyItems.forEach(item => {
+    observer.observe(item);
+});
+
+
+/* =====================================================
+   INITIAL SCROLL LOCK
+===================================================== */
+
+document.body.style.overflow = "hidden";
+
+</script>
+
 </body>
 </html>
