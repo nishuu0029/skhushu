@@ -348,291 +348,225 @@
 
     <script>
 
-        /*
-        =====================================================
-        GITHUB SETTINGS
-        =====================================================
-
-        IMPORTANT:
-
-        Replace YOUR-GITHUB-USERNAME
-        with your actual GitHub username.
-
-        Example:
-
-        https://github.com/sagar123/my-love-website
-
-        Username = sagar123
-
-        Repository = my-love-website
-        */
-
-        const GITHUB_USERNAME =
-            "nishuu0029";
-
-        const GITHUB_REPOSITORY =
-            "skhushu";
-
-        const SONG_FOLDER =
-            "songs";
+const GITHUB_USERNAME = "nishuu0029";
+const GITHUB_REPOSITORY = "skhushu";
+const SONG_FOLDER = "songs";
 
 
-        /*
-        =====================================================
-        LOAD SONGS
-        =====================================================
-        */// Ek time par sirf ek song chalega
-document.addEventListener("play", function(event) {
-    if (event.target.tagName === "AUDIO") {
-        document.querySelectorAll("audio").forEach(audio => {
-            if (audio !== event.target) {
-                audio.pause();
-                audio.currentTime = 0;
-            }
+async function loadSongs() {
+
+    const container = document.getElementById("songsContainer");
+
+    try {
+
+        const apiURL =
+            `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPOSITORY}/contents/${SONG_FOLDER}`;
+
+        const response = await fetch(apiURL);
+
+        if (!response.ok) {
+            throw new Error("GitHub folder could not be loaded.");
+        }
+
+        const files = await response.json();
+
+
+        // Sirf MP3 files
+        const songs = files.filter(file =>
+            file.type === "file" &&
+            file.name.toLowerCase().endsWith(".mp3")
+        );
+
+
+        // Alphabetical / numerical order
+        songs.sort((a, b) =>
+            a.name.localeCompare(
+                b.name,
+                undefined,
+                {
+                    numeric: true,
+                    sensitivity: "base"
+                }
+            )
+        );
+
+
+        container.innerHTML = "";
+
+
+        if (songs.length === 0) {
+
+            container.innerHTML = `
+                <div class="error-message">
+                    No songs found ❤️
+                </div>
+            `;
+
+            return;
+        }
+
+
+        songs.forEach((song, index) => {
+
+            // File name se .mp3 remove
+            let title = song.name.replace(/\.mp3$/i, "");
+
+
+            // _ aur - ko space mein convert
+            title = title.replace(/[_-]+/g, " ");
+
+
+            // First letter capital
+            title =
+                title.charAt(0).toUpperCase() +
+                title.slice(1);
+
+
+            const card = document.createElement("div");
+
+            card.className = "song-card";
+
+
+            /*
+                IMPORTANT:
+                GitHub API download_url ki jagah
+                website ke songs folder ka direct path
+                use kar rahe hain.
+            */
+
+            const songURL =
+                `${SONG_FOLDER}/${encodeURIComponent(song.name)}`;
+
+
+            card.innerHTML = `
+
+                <div class="song-number">
+                    ${String(index + 1).padStart(2, "0")}
+                </div>
+
+
+                <div class="song-info">
+
+                    <h3>
+                        ${escapeHTML(title)}
+                    </h3>
+
+                    <p>
+                        A song that belongs to us ❤️
+                    </p>
+
+                </div>
+
+
+                <div class="song-player">
+
+                    <audio
+                        controls
+                        preload="metadata"
+                    >
+
+                        <source
+                            src="${songURL}"
+                            type="audio/mpeg"
+                        >
+
+                        Your browser does not support audio.
+
+                    </audio>
+
+                </div>
+
+
+                <div class="song-heart">
+                    ♥
+                </div>
+
+            `;
+
+
+            container.appendChild(card);
+
         });
+
+
+    } catch (error) {
+
+        console.error(
+            "Songs loading error:",
+            error
+        );
+
+
+        container.innerHTML = `
+
+            <div class="error-message">
+
+                Songs load nahi ho paaye ❤️
+
+                <br><br>
+
+                GitHub settings check karo.
+
+            </div>
+
+        `;
+
     }
-}, true);
 
-        async function loadSongs() {
-
-            const container =
-                document.getElementById(
-                    "songsContainer"
-                );
+}
 
 
-            try {
+/*
+    Security:
+    Song title ko safely display karta hai.
+*/
 
-                const apiURL =
-                    `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPOSITORY}/contents/${SONG_FOLDER}`;
+function escapeHTML(text) {
 
+    const div = document.createElement("div");
 
-                const response =
-                    await fetch(apiURL);
+    div.textContent = text;
 
+    return div.innerHTML;
 
-                if (!response.ok) {
-
-                    throw new Error(
-                        "GitHub folder could not be loaded."
-                    );
-
-                }
+}
 
 
-                const files =
-                    await response.json();
+/*
+    EK TIME PAR SIRF EK SONG CHALEGA
+*/
 
+document.addEventListener(
+    "play",
+    function(event) {
 
-                /*
-                Only MP3 files
-                */
+        if (event.target.tagName === "AUDIO") {
 
-                const songs =
-                    files.filter(file =>
-                        file.type === "file" &&
-                        file.name
-                            .toLowerCase()
-                            .endsWith(".mp3")
-                    );
+            document.querySelectorAll("audio").forEach(
+                function(audio) {
 
+                    if (audio !== event.target) {
 
-                /*
-                Sort alphabetically
-                */
+                        audio.pause();
 
-                songs.sort((a, b) =>
-                    a.name.localeCompare(
-                        b.name,
-                        undefined,
-                        {
-                            numeric: true,
-                            sensitivity: "base"
-                        }
-                    )
-                );
-
-
-                container.innerHTML = "";
-
-
-                /*
-                No songs
-                */
-
-                if (songs.length === 0) {
-
-                    container.innerHTML = `
-                        <div class="error-message">
-                            No songs found ❤️
-                        </div>
-                    `;
-
-                    return;
-                }
-
-
-                /*
-                Create song cards
-                */
-
-                songs.forEach(
-                    (song, index) => {
-
-                        /*
-                        Remove .mp3
-                        */
-
-                        let title =
-                            song.name.replace(
-                                /\.mp3$/i,
-                                ""
-                            );
-
-
-                        /*
-                        Replace underscores
-                        and hyphens with spaces
-                        */
-
-                        title =
-                            title.replace(
-                                /[_-]/g,
-                                " "
-                            );
-
-
-                        /*
-                        Capitalize first letter
-                        */
-
-                        title =
-                            title.charAt(0)
-                            .toUpperCase()
-                            +
-                            title.slice(1);
-
-
-                        const card =
-                            document.createElement(
-                                "div"
-                            );
-
-
-                        card.className =
-                            "song-card";
-
-
-                        card.innerHTML = `
-
-                            <div class="song-number">
-                                ${String(index + 1)
-                                    .padStart(2, "0")}
-                            </div>
-
-
-                            <div class="song-info">
-
-                                <h3>
-                                    ${escapeHTML(title)}
-                                </h3>
-
-                                <p>
-                                    A song that belongs to us ❤️
-                                </p>
-
-                            </div>
-
-
-                            <div class="song-player">
-
-                                <audio
-                                    controls
-                                    preload="metadata"
-                                >
-
-                                    <source
-                                        src="${song.download_url}"
-                                        type="audio/mpeg"
-                                    >
-
-                                    Your browser does not support audio.
-
-                                </audio>
-
-                            </div>
-
-
-                            <div class="song-heart">
-                                ♥
-                            </div>
-
-                        `;
-
-
-                        container.appendChild(
-                            card
-                        );
+                        audio.currentTime = 0;
 
                     }
-                );
 
-
-            } catch (error) {
-
-                console.error(
-                    "Songs loading error:",
-                    error
-                );
-
-
-                container.innerHTML = `
-
-                    <div class="error-message">
-
-                        Songs load nahi ho paaye ❤️
-                        <br><br>
-
-                        GitHub username aur
-                        repository name check karo.
-
-                    </div>
-
-                `;
-
-            }
+                }
+            );
 
         }
 
-
-        /*
-        =====================================================
-        SECURITY
-        =====================================================
-        */
-
-        function escapeHTML(text) {
-
-            const div =
-                document.createElement("div");
-
-            div.textContent =
-                text;
-
-            return div.innerHTML;
-
-        }
+    },
+    true
+);
 
 
-        /*
-        START
-        */
+/*
+    START
+*/
 
-        loadSongs();
+loadSongs();
 
-    </script>
-
-
-</body>
-
-</html>
+</script>
