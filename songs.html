@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Our Songs ❤️</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+
+    <style>
+
+        .songs-page {
+
+            min-height: 100vh;
+
+            padding: 150px 20px 80px;
+
+        }
+
+
+        .songs-heading {
+
+            text-align: center;
+
+            margin-bottom: 55px;
+
+        }
+
+
+        .songs-heading .small-title {
+
+            color: #f19ab4;
+
+            font-size: 13px;
+
+            letter-spacing: 4px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .songs-heading h1 {
+
+            font-family: "Great Vibes", cursive;
+
+            font-size: clamp(50px, 8vw, 90px);
+
+            font-weight: 400;
+
+            margin: 0;
+
+            background: linear-gradient(
+                135deg,
+                #ffffff,
+                #f19ab4
+            );
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+        }
+
+
+        .songs-heading p {
+
+            color: #b9aab1;
+
+            font-family: "DM Sans", sans-serif;
+
+            font-size: 14px;
+
+            margin-top: 15px;
+
+        }
+
+
+        .songs-container {
+
+            width: min(850px, 100%);
+
+            margin: auto;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 18px;
+
+        }
+
+
+        .song-card {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 20px;
+
+            padding: 20px;
+
+            border: 1px solid rgba(255,255,255,.10);
+
+            border-radius: 20px;
+
+            background: rgba(255,255,255,.035);
+
+            backdrop-filter: blur(15px);
+
+            transition: .3s;
+
+        }
+
+
+        .song-card:hover {
+
+            transform: translateY(-3px);
+
+            border-color: rgba(241,154,180,.35);
+
+            background: rgba(241,154,180,.06);
+
+        }
+
+
+        .song-number {
+
+            width: 45px;
+
+            height: 45px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: rgba(241,154,180,.12);
+
+            color: #f19ab4;
+
+            font-family: "DM Sans", sans-serif;
+
+            font-size: 13px;
+
+        }
+
+
+        .song-info {
+
+            flex: 1;
+
+        }
+
+
+        .song-info h3 {
+
+            margin: 0 0 5px;
+
+            color: #fff;
+
+            font-family: "Cormorant Garamond", serif;
+
+            font-size: 25px;
+
+            font-weight: 600;
+
+        }
+
+
+        .song-info p {
+
+            margin: 0;
+
+            color: #9e8d95;
+
+            font-family: "DM Sans", sans-serif;
+
+            font-size: 12px;
+
+        }
+
+
+        .song-player {
+
+            width: 300px;
+
+            max-width: 40%;
+
+        }
+
+
+        .song-player audio {
+
+            width: 100%;
+
+            height: 38px;
+
+        }
+
+
+        .song-heart {
+
+            color: #f19ab4;
+
+            font-size: 22px;
+
+        }
+
+
+        .songs-note {
+
+            text-align: center;
+
+            margin-top: 50px;
+
+            color: #8f7e86;
+
+            font-family: "Great Vibes", cursive;
+
+            font-size: 27px;
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .songs-page {
+
+                padding: 130px 15px 60px;
+
+            }
+
+
+            .song-card {
+
+                flex-wrap: wrap;
+
+                gap: 14px;
+
+                padding: 16px;
+
+            }
+
+
+            .song-info {
+
+                min-width: calc(100% - 75px);
+
+            }
+
+
+            .song-player {
+
+                width: 100%;
+
+                max-width: 100%;
+
+                padding-left: 0;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <a href="index.html">Home</a>
+
+        <a href="index.html#story">Our Story</a>
+
+        <a href="index.html#dates">Dates</a>
+
+        <a href="our photos.html">Photos</a>
+
+        <a href="songs.html">Songs</a>
+
+        <a href="index.html#letter">Letter</a>
+
+    </nav>
+
+
+
+    <!-- SONGS -->
+
+    <main class="songs-page">
+
+
+        <div class="songs-heading">
+
+            <div class="small-title">
+                Our little playlist
+            </div>
+
+
+            <h1>
+                Our Songs ❤️
+            </h1>
+
+
+            <p>
+                Songs that remind me of you, us, and every little moment.
+            </p>
+
+        </div>
+
+
+
+        <div class="songs-container">
+
+
+            <!-- SONG 1 -->
+
+            <div class="song-card">
+
+                <div class="song-number">
+                    01
+                </div>
+
+
+                <div class="song-info">
+
+                    <h3>
+                        Our First Song
+                    </h3>
+
+                    <p>
+                        A song that belongs to us ❤️
+                    </p>
+
+                </div>
+
+
+                <div class="song-player">
+
+                    <audio controls preload="metadata">
+
+                        <source
+                            src="songs/song1.mp3"
+                            type="audio/mpeg">
+
+                        Your browser does not support audio.
+
+                    </audio>
+
+                </div>
+
+
+                <div class="song-heart">
+                    ♥
+                </div>
+
+            </div>
+
+
+
+            <!-- SONG 2 -->
+
+            <div class="song-card">
+
+                <div class="song-number">
+                    02
+                </div>
+
+
+                <div class="song-info">
+
+                    <h3>
+                        For My Khushuu
+                    </h3>
+
+                    <p>
+                        Just for you, baccha ❤️
+                    </p>
+
+                </div>
+
+
+                <div class="song-player">
+
+                    <audio controls preload="metadata">
+
+                        <source
+                            src="songs/song2.mp3"
+                            type="audio/mpeg">
+
+                        Your browser does not support audio.
+
+                    </audio>
+
+                </div>
+
+
+                <div class="song-heart">
+                    ♥
+                </div>
+
+            </div>
+
+
+
+            <!-- SONG 3 -->
+
+            <div class="song-card">
+
+                <div class="song-number">
+                    03
+                </div>
+
+
+                <div class="song-info">
+
+                    <h3>
+                        Forever Us
+                    </h3>
+
+                    <p>
+                        One more song for us ❤️
+                    </p>
+
+                </div>
+
+
+                <div class="song-player">
+
+                    <audio controls preload="metadata">
+
+                        <source
+                            src="songs/song3.mp3"
+                            type="audio/mpeg">
+
+                        Your browser does not support audio.
+
+                    </audio>
+
+                </div>
+
+
+                <div class="song-heart">
+                    ♥
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="songs-note">
+
+            "Every love story has a soundtrack... ❤️"
+
+        </div>
+
+
+    </main>
+
+
+</body>
+</html>
