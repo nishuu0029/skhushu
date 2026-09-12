@@ -381,7 +381,17 @@
         =====================================================
         LOAD SONGS
         =====================================================
-        */
+        */// Ek time par sirf ek song chalega
+document.addEventListener("play", function(event) {
+    if (event.target.tagName === "AUDIO") {
+        document.querySelectorAll("audio").forEach(audio => {
+            if (audio !== event.target) {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        });
+    }
+}, true);
 
         async function loadSongs() {
 
